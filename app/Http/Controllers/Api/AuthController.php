@@ -13,11 +13,10 @@ use Exception;
 
 class AuthController extends Controller
 {
-    use ApiResponse;  // Menggunakan trait ApiResponse
+    use ApiResponse;
 
     protected $authService;
 
-    // Constructor dengan dependency injection AuthService
     public function __construct(AuthService $authService)
     {
         $this->authService = $authService;
@@ -30,7 +29,6 @@ class AuthController extends Controller
             $data = $request->validated();
             $result = $this->authService->register($data);
 
-            // Menggunakan successResponse untuk format respon yang lebih baik
             return $this->successResponse([
                 'user' => new UserResource($result['user']),
                 'token' => $result['token']
